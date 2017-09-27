@@ -13,12 +13,17 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(req, res){
+//app.get('/', function(req, res){
 	// res.type('text/plain');
 	// res.send('Meadowlark Travel');
-	res.render("home");
-});
+	//res.render("home");
+//});
 
+
+app.use(function(req, res, next){
+	res.locals.showTest = app.get('env') !== 'production' && req.query.test === '1';
+	next();
+});
 
 
 app.get('/about', function(req, res){
